@@ -6,13 +6,27 @@ dotenv.config();
 
 const app = express();
 
+// --------------- Middleware ---------------
 app.use(cors());
 app.use(express.json());
 
+// --------------- Routes ---------------
+const authRoutes = require("./Routes/authRoutes");
+const storageRoutes = require("./Routes/storageRoutes");
+const bookingRoutes = require("./Routes/bookingRoutes");
+const adminRoutes = require("./Routes/adminRoutes");
+
+app.use("/api/auth", authRoutes);
+app.use("/api/storage", storageRoutes);
+app.use("/api/bookings", bookingRoutes);
+app.use("/api/admin", adminRoutes);
+
+// Health-check
 app.get("/", (req, res) => {
   res.send("Unit Vault Backend Running");
 });
 
+// --------------- Start Server ---------------
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
