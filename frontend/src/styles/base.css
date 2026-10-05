@@ -1,0 +1,131 @@
+/* ============================================================
+   UniVault Design System — Base tokens, reset, typography
+   Restrained, premium aesthetic: purple as a deliberate accent
+   over a refined neutral system.
+   ============================================================ */
+
+:root {
+  /* Brand — Deep Teal */
+  --primary: #0D9488;
+  --primary-hover: #0B7E74;
+  --primary-deep: #0A6A62;   /* solid heading accent */
+  --primary-2: #14B8A6;
+  --primary-light: #E4F5F3;
+  --primary-soft: #CDEDE9;
+
+  /* Surfaces */
+  --bg: #FFFFFF;
+  --bg-subtle: #FBFBFC;
+  --bg-muted: #F5F5F7;
+  --border: #ECECF0;
+  --border-strong: #E0E0E7;
+
+  /* Text — near-black with a hint of warmth, calmer secondaries */
+  --text: #17151F;
+  --text-2: #66646F;
+  --text-3: #9A98A4;
+
+  /* Status (slightly desaturated for a calmer feel) */
+  --green: #159B57;
+  --green-light: #E4F6EC;
+  --orange: #E08A00;
+  --orange-light: #FBF0DA;
+  --red: #E1483C;
+  --red-light: #FBE9E7;
+  --blue: #3B6FF5;
+  --blue-light: #E7EEFD;
+
+  /* Radii */
+  --r-card: 20px;
+  --r-input: 14px;
+  --r-btn: 12px;
+  --r-img: 18px;
+  --r-sm: 10px;
+  --r-pill: 999px;
+
+  /* Shadows — layered and quiet (a near-ground contact + a soft ambient) */
+  --shadow-xs: 0 1px 2px rgba(23, 21, 31, 0.04), 0 1px 1px rgba(23, 21, 31, 0.03);
+  --shadow-sm: 0 1px 2px rgba(23, 21, 31, 0.04), 0 4px 12px rgba(23, 21, 31, 0.05);
+  --shadow: 0 1px 2px rgba(23, 21, 31, 0.05), 0 12px 28px rgba(23, 21, 31, 0.07);
+  --shadow-lg: 0 4px 10px rgba(23, 21, 31, 0.06), 0 24px 56px rgba(23, 21, 31, 0.12);
+  --shadow-purple: 0 6px 18px rgba(13, 148, 136, 0.24);
+
+  /* Layout */
+  --maxw: 1440px;
+  --nav-h: 72px;
+
+  /* Gradient — single-hue, restrained. Reserved for a few accent moments. */
+  --grad-purple: linear-gradient(140deg, #0D9488 0%, #14B8A6 100%);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.55;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv11', 'ss01';
+  text-rendering: optimizeLegibility;
+}
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+input, textarea, select { font-family: inherit; }
+ul { list-style: none; }
+
+h1, h2, h3, h4, h5 { font-weight: 700; line-height: 1.15; letter-spacing: -0.021em; color: var(--text); }
+h1 { letter-spacing: -0.03em; }
+
+/* Layout helpers */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.container-wide { max-width: var(--maxw); }
+
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.main-content { flex: 1; }
+
+/* Heading accent — solid deep purple, not a multi-stop gradient.
+   This single change de-clutters headings across the whole app. */
+.gradient-text {
+  color: var(--primary-deep);
+  -webkit-text-fill-color: currentColor;
+  background: none;
+}
+
+.section-eyebrow {
+  color: var(--primary);
+  font-weight: 650;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Focus accessibility */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Selection */
+::selection { background: var(--primary-soft); color: var(--primary-deep); }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #E4E3EA; border-radius: 999px; border: 2px solid #fff; }
+::-webkit-scrollbar-thumb:hover { background: #d2d0dc; }

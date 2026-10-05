@@ -1,0 +1,115 @@
+/* ============================================================
+   UniVault — Responsive
+   ============================================================ */
+
+/* Mobile menu drawer (shared) */
+.mobile-drawer { display: none; }
+
+@media (max-width: 1080px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; }
+  .hero-visual { max-width: 460px; margin: 0 auto; }
+  .how-grid { grid-template-columns: repeat(2, 1fr); }
+  .dash-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .dash-cols { grid-template-columns: 1fr; }
+  .quick-actions { grid-template-columns: repeat(2, 1fr); }
+  .detail-grid { grid-template-columns: 1fr; }
+  .book-card { position: static; }
+  .landlord-hero { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .faq-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-summary-grid { grid-template-columns: 1fr; }
+  .stats-band { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .david-page { grid-template-columns: 1fr; }
+  .david-left { display: none; }
+  .help-layout { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 12px; background: var(--bg-muted); color: var(--text); border: none; cursor: pointer; }
+  .hamburger svg { width: 22px; height: 22px; }
+  
+  /* Hide search, location, name AND buttons in the top right, because they're inside the drawer */
+  .nav-right .searchbar, .nav-right .loc-select, .nav-profile-name, .nav-right .btn { display: none; }
+  
+  /* Only keep the notification bell, profile icon, and hamburger visible in nav-right */
+  .nav-right .nav-icon-btn, .nav-right .nav-profile { margin-right: 8px; }
+  .nav-right { gap: 8px; }
+
+  .mobile-drawer.open { display: block; position: fixed; inset: var(--nav-h) 0 0 0; background: #fff; z-index: 99; padding: 24px; border-top: 1px solid var(--border); overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+  .mobile-drawer .nav-link { display: block; padding: 16px; font-size: 16px; font-weight: 600; border-bottom: 1px solid var(--border); border-radius: 8px; }
+  .mobile-drawer .nav-link.active { background: var(--primary-light); color: var(--primary); }
+
+  /* Sidebar becomes hidden drawer on shell pages */
+  .sidebar { display: none; }
+  .shell-main { padding: 24px 18px; }
+
+  .hero-title { font-size: 40px; }
+  .hero-search { flex-direction: column; }
+  .hs-field + .hs-field { border-left: none; border-top: 1px solid var(--border); }
+  .hero-search .btn { width: 100%; height: 50px; }
+
+  .messages-grid { grid-template-columns: 1fr; height: auto; border: none; box-shadow: none; }
+  .conv-list { display: none; }
+}
+
+@media (max-width: 680px) {
+  /* Core layout paddings */
+  .page, .shell-main, .hero, .how, .section { padding-left: 18px; padding-right: 18px; }
+  .container { padding: 0 18px; }
+  .navbar-inner { padding: 0 18px; gap: 12px; }
+  .brand { font-size: 18px; }
+  
+  /* Auth responsive */
+  .auth-page { padding: 20px 16px; align-items: flex-start; }
+  .auth-card { padding: 32px 24px; box-shadow: var(--shadow-sm); border-radius: 20px; }
+  .auth-title { font-size: 22px; }
+  .role-toggle { grid-template-columns: 1fr; }
+  
+  /* Grids to 1 column */
+  .how-grid, .dash-grid-4, .quick-actions, .form-row, .footer-inner, .faq-grid, .admin-stats-grid, .stats-band, .profile-grid, .detail-info-grid, .amenity-grid, .gallery-thumbs { grid-template-columns: 1fr; }
+  
+  /* Page headers */
+  .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .page-title { font-size: 24px; }
+  .section-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  
+  /* Cards */
+  .storage-card { grid-template-columns: 1fr; }
+  .storage-thumb { aspect-ratio: 16/10; width: 100%; border-radius: var(--r-card) var(--r-card) 0 0; }
+  .storage-body { padding: 14px; }
+  
+  /* Detail view gallery */
+  .gallery-main { border-radius: var(--r-card); }
+  .gallery-thumbs { display: none; /* hide thumbs on mobile, just show main */ }
+  .detail-card { padding: 20px; }
+  .detail-header { flex-direction: column; align-items: flex-start; }
+  .detail-price { text-align: left; margin-top: 8px; }
+  
+  /* Buttons */
+  .btn-lg { width: 100%; justify-content: center; }
+  
+  /* Modals */
+  .modal-overlay { padding: 12px; align-items: flex-end; }
+  .modal-content { padding: 24px 20px; border-radius: 24px 24px 0 0; max-height: 90vh; overflow-y: auto; }
+
+  /* Adjust typography */
+  .hero-title { font-size: 34px; line-height: 1.1; }
+  .landlord-hero h1 { font-size: 32px; }
+  
+  /* Footer adjustments */
+  .footer-bottom, .footer-inner { text-align: center; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px; }
+  .footer-brand-col { margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+  .footer-social { justify-content: center; }
+  
+  /* Tables */
+  .admin-table-card { padding: 16px; border-radius: 16px; }
+  .admin-table th, .admin-table td { padding: 10px 8px; font-size: 13px; }
+  .admin-table-wrapper { margin: 0 -16px; padding: 0 16px; }
+  
+  /* Misc UI elements */
+  .alert { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .assistant-fab { bottom: 16px; right: 16px; }
+}

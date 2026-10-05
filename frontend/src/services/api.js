@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  // Use the local network IP explicitly for the native mobile app
+  baseURL: 'http://192.168.100.35:5000/api',
 });
 
 API.interceptors.request.use((config) => {
@@ -27,12 +28,19 @@ export const getStorageUnits = (filters = {}) => {
   return API.get(`/storage?${params.toString()}`);
 };
 export const getStorageUnit = (id) => API.get(`/storage/${id}`);
+export const createStorageUnit = (data) => API.post('/storage', data);
+export const getMyStorageUnits = () => API.get('/storage/mine');
+export const deleteStorageUnit = (id) => API.delete(`/storage/${id}`);
 
 // Bookings
 export const createBooking = (data) => API.post('/bookings', data);
 export const getMyBookings = () => API.get('/bookings/me');
 export const getBooking = (id) => API.get(`/bookings/${id}`);
 export const cancelBooking = (id) => API.patch(`/bookings/${id}/cancel`);
+
+// Assistant (David / Gemini)
+export const sendAssistantMessage = (message, history = []) =>
+  API.post('/assistant/chat', { message, history });
 
 // Admin
 export const getAdminStats = () => API.get('/admin/stats');

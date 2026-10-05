@@ -1,74 +1,85 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Bell, Menu, X, MapPin, Search } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import Logo from './ui/Logo';
+import Avatar from './ui/Avatar';
+
+const menu = [
+  { to: '/storage', label: 'Find Storage' },
+  { to: '/#how-it-works', label: 'How it Works' },
+  { to: '/become-landlord', label: 'For Landlords' },
+  { to: '/#featured', label: 'Pricing' },
+  { to: '/help', label: 'Support' },
+];
 
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
+    setOpen(false);
     navigate('/login');
-    setMobileOpen(false);
   };
+
+  const renderLink = (m) =>
+    m.to.includes('#') ? (
+      <a key={m.label} href={m.to} className="nav-link" onClick={() => setOpen(false)}>{m.label}</a>
+    ) : (
+      <NavLink key={m.label} to={m.to} end={m.end}
+        className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+        onClick={() => setOpen(false)}>
+        {m.label}
+      </NavLink>
+    );
 
   return (
     <nav className="navbar" id="main-navbar">
-      <div className="navbar-container">
-        <Link to="/" className="navbar-logo" id="navbar-logo">
-          <span className="logo-icon">◈</span>
-          UNIVAULT
-        </Link>
+      <div className="navbar-inner">
+        <Logo />
+        <div className="nav-links">{menu.map(renderLink)}</div>
 
-        <button
-          className={`hamburger ${mobileOpen ? 'active' : ''}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          id="hamburger-btn"
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <div className={`navbar-links ${mobileOpen ? 'active' : ''}`}>
+        <div className="nav-right">
           {isAuthenticated ? (
             <>
-              <Link to="/dashboard" className="nav-link" id="nav-dashboard" onClick={() => setMobileOpen(false)}>
-                Dashboard
+              <span className="loc-select"><MapPin /> Juja</span>
+              <Link to="/messages" className="nav-icon-btn" aria-label="Notifications">
+                <Bell />
+                <span className="nav-badge">2</span>
               </Link>
-              <Link to="/storage" className="nav-link" id="nav-browse" onClick={() => setMobileOpen(false)}>
-                Browse Storage
+              <Link to="/profile" className="nav-profile">
+                <Avatar src={user?.avatar} name={user?.full_name} size="sm" />
+                <span className="nav-profile-name">{user?.full_name?.split(' ')[0] || 'Profile'}</span>
               </Link>
-              <Link to="/bookings" className="nav-link" id="nav-bookings" onClick={() => setMobileOpen(false)}>
-                My Bookings
-              </Link>
-              {user?.role === 'admin' && (
-                <Link to="/admin" className="nav-link nav-admin" id="nav-admin" onClick={() => setMobileOpen(false)}>
-                  🛡️ Admin
-                </Link>
-              )}
-              <div className="nav-divider"></div>
-              <Link to="/profile" className="nav-link nav-profile" id="nav-profile" onClick={() => setMobileOpen(false)}>
-                <span className="profile-avatar">{user?.full_name?.charAt(0) || 'U'}</span>
-                {user?.full_name || 'Profile'}
-              </Link>
-              <button className="btn btn-outline btn-sm" id="nav-logout" onClick={handleLogout}>
-                Logout
-              </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-link" id="nav-login" onClick={() => setMobileOpen(false)}>
-                Login
-              </Link>
-              <Link to="/register" className="btn btn-primary btn-sm" id="nav-register" onClick={() => setMobileOpen(false)}>
-                Get Started
-              </Link>
+              <Link to="/storage" className="nav-icon-btn" aria-label="Search storage"><Search /></Link>
+              <Link to="/login" className="btn btn-outline btn-sm">Login</Link>
+              <Link to="/register" className="btn btn-primary btn-sm">Get Started</Link>
             </>
           )}
+          <button className="hamburger" onClick={() => setOpen(!open)} aria-label="Menu">
+            {open ? <X /> : <Menu />}
+          </button>
         </div>
+      </div>
+
+      <div className={`mobile-drawer${open ? ' open' : ''}`}>
+        {menu.map(renderLink)}
+        {isAuthenticated ? (
+          <>
+            <NavLink to="/dashboard" className="nav-link" onClick={() => setOpen(false)}>Dashboard</NavLink>
+            <button className="btn btn-outline btn-full" style={{ marginTop: 16 }} onClick={handleLogout}>Log out</button>
+          </>
+        ) : (
+          <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+            <Link to="/login" className="btn btn-outline btn-full" onClick={() => setOpen(false)}>Login</Link>
+            <Link to="/register" className="btn btn-primary btn-full" onClick={() => setOpen(false)}>Get Started</Link>
+          </div>
+        )}
       </div>
     </nav>
   );
